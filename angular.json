@@ -20,7 +20,7 @@
             "allowedCommonJsDependencies": [
                 "lodash","chart.js","@swimlane/dragula","ngrx-store-freeze","@swimlane/ngx-datatable"
             ],
-            "aot": true,
+            "aot": false,
             "outputPath": "dist/fuse",
             "index": "src/index.html",
             "main": "src/main.ts",

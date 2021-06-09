@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FuseSharedModule } from '@fuse/shared.module';
 
 const routes = [
-   /*  {
+     {
         path        : 'dashboards/analytics',
         loadChildren: () => import('./dashboards/analytics/analytics.module').then(m => m.AnalyticsDashboardModule)
     },
@@ -51,7 +51,7 @@ const routes = [
     {
         path        : 'scrumboard',
         loadChildren: () => import('./scrumboard/scrumboard.module').then(m => m.ScrumboardModule)
-    }*/
+    }
 ];
 
 @NgModule({

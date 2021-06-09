@@ -1,0 +1,74 @@
+<div id="academy-courses" class="page-layout simple">
+  <!-- HEADER -->
+  <div class="header accent p-16 p-sm-24" fxLayout="column" fxLayoutAlign="center center">
+    <div class="hero-text">
+      <mat-icon class="hero-icon">school</mat-icon>
+      <h1 [@animate]="{ value: '*', params: { delay: '100ms', y: '25px' } }">{{ 'projects.title' | translate }}</h1>
+      <h3 [@animate]="{ value: '*', params: { delay: '100ms', y: '25px' } }">
+        {{ 'projects.description' | translate }}
+      </h3>
+    </div>
+  </div>
+  <!-- / HEADER -->
+
+  <!-- CONTENT -->
+  <div class="content p-24">
+    <div fxLayout="column" fxLayoutAlign="center">
+      <div class="filters" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+        <mat-form-field appearance="outline" floatLabel="always" class="course-search">
+          <mat-label>{{ 'projects.search.label' | translate }}</mat-label>
+          <input
+            matInput
+            placeholder="{{ 'projects.search.placeholder' | translate }}"
+            [(ngModel)]="searchTerm"
+            (input)="filterCoursesByTerm()"
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="courses" fxLayout="row wrap" fxLayoutAlign="center" [@animateStagger]="{ value: '50' }">
+        <div
+          class="course"
+          *ngFor="let project of projects"
+          fxFlex="100"
+          fxFlex.gt-xs="50"
+          fxFlex.gt-sm="33"
+          [@animate]="{ value: '*', params: { y: '100%' } }"
+        >
+          <div class="course-content" fxLayout="column" fxFlex="1 1 auto">
+            <div class="card-header" fxLayout="row" fxLayoutAlign="strat center">
+              <div class="card-logo">J</div>
+            </div>
+
+            <div class="content" fxLayout="column" fxLayoutAlign="center center" fxFlex="1 1 auto">
+              <div class="h2">{{ project.name }}</div>
+              <div class="updated">{{ project.description }}</div>
+            </div>
+
+            <div class="footer" fxLayout="row" fxLayoutAlign="center center">
+              <div class="updated">{{ 'projects.updated' | translate }} {{ project.updateAt }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="course"
+          fxFlex="100"
+          fxFlex.gt-xs="50"
+          fxFlex.gt-sm="33"
+          [@animate]="{ value: '*', params: { y: '100%' } }"
+          (click)="openDialog()"
+        >
+          <div class="course-content add-project" fxLayout="column" fxFlex="1 1 auto">
+            <div class="content" fxLayout="column" fxLayoutAlign="center center" fxFlex="1 1 auto">
+              <mat-icon>add</mat-icon>
+            </div>
+          </div>
+        </div>
+
+        <div class="no-courses" *ngIf="projects.length === 0">No courses found!</div>
+      </div>
+    </div>
+  </div>
+  <!-- / CONTENT -->
+</div>

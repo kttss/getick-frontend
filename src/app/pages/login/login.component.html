@@ -1,0 +1,80 @@
+<div id="login" class="inner-scroll" fxLayout="row" fxLayoutAlign="start">
+
+  <div id="login-intro" fxFlex fxHide fxShow.gt-xs>
+
+      <div class="logo" [@animate]="{value:'*',params:{scale:'0.2'}}">
+          <img src="assets/images/logos/fuse.svg">
+      </div>
+
+      <div class="title" [@animate]="{value:'*',params:{delay:'50ms',y:'25px'}}">
+          {{'login.title' | translate}}
+      </div>
+
+      <div class="description" [@animate]="{value:'*',params:{delay:'100ms',y:'25px'}}">
+         {{'login.description' | translate }}
+      </div>
+
+  </div>
+
+  <div id="login-form-wrapper" fusePerfectScrollbar
+       [@animate]="{value:'*',params:{delay:'300ms',x:'100%'}}">
+
+      <div id="login-form">
+
+          <div class="logo" fxHide.gt-xs>
+              <img src="assets/images/logos/fuse.svg">
+          </div>
+
+          <div class="title">{{'login.form.title' | translate}}</div>
+
+          <form name="loginForm" [formGroup]="loginForm" novalidate>
+
+              <mat-form-field appearance="outline">
+                  <mat-label>{{'login.form.email' | translate}}</mat-label>
+                  <input matInput formControlName="email">
+                  <mat-icon matSuffix class="secondary-text">mail</mat-icon>
+                  <mat-error *ngIf="loginForm.get('email').hasError('required')">
+                      {{'field_is_required' | translate}}
+                  </mat-error>
+                  <mat-error
+                      *ngIf="!loginForm.get('email').hasError('required') &&
+                              loginForm.get('email').hasError('email')">
+                      {{'email_is_not_valid' | translate}}
+                  </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                  <mat-label>{{'login.forlm.password' | translate}}</mat-label>
+                  <input matInput type="password" formControlName="password">
+                  <mat-icon matSuffix class="secondary-text">vpn_key</mat-icon>
+                  <mat-error>
+                    {{'field_is_required' | translate}}
+                  </mat-error>
+              </mat-form-field>
+
+              <div class="remember-forgot-password" fxLayout="row" fxLayout.xs="column"
+                   fxLayoutAlign="space-between center">
+                  <mat-checkbox class="remember-me" aria-label="Remember Me">
+                      {{'login.form.remember_me' | translate}}
+                  </mat-checkbox>
+
+                  <a class="forgot-password" [routerLink]="'/pages/auth/forgot-password-2'">
+                      {{'login.form.forgot_password' | translate}}
+                  </a>
+              </div>
+
+              <button mat-raised-button color="accent" class="submit-button" aria-label="LOGIN"
+                      [disabled]="loginForm.invalid">
+                  {{'login.form.login' | translate}}
+              </button>
+
+          </form>
+
+
+          <div class="register" fxLayout="column" fxLayoutAlign="center center">
+              <span class="text">{{'login.form.dont_have_an_account' | translate}}</span>
+              <a class="link" [routerLink]="'/pages/auth/register-2'">{{'login.form.create_an_account' | translate}}</a>
+          </div>
+      </div>
+  </div>
+</div>

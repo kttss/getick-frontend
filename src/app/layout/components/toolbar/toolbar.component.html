@@ -4,22 +4,32 @@
 
         <div fxFlex="1 0 auto" fxLayout="row" fxLayoutAlign="start center">
 
-            <button mat-icon-button class="navbar-toggle-button"
-                    *ngIf="!hiddenNavbar && !rightNavbar" (click)="toggleSidebarOpen('navbar')" fxHide.gt-md>
-                <mat-icon class="secondary-text">menu</mat-icon>
-            </button>
 
-            <div class="toolbar-separator" *ngIf="!hiddenNavbar && !rightNavbar" fxHide.gt-md></div>
+          <button mat-button [matMenuTriggerFor]="selectProject"
+          class="user-button">
+      <div fxLayout="row" fxLayoutAlign="center center">
+          <span class="username mr-12" fxHide fxShow.gt-sm>Project 1</span>
+          <mat-icon class="s-16" fxHide.xs>keyboard_arrow_down</mat-icon>
+      </div>
+  </button>
 
-            <div fxLayout="row" fxLayoutAlign="start center" *ngIf="horizontalNavbar">
-                <div class="logo ml-16">
-                    <img class="logo-icon" src="assets/images/logos/fuse.svg">
-                </div>
-            </div>
+  <mat-menu #selectProject="matMenu" [overlapTrigger]="false">
 
-            <div class="px-8 px-md-16">
-                <fuse-shortcuts [navigation]="navigation"></fuse-shortcuts>
-            </div>
+    <button mat-menu-item>
+        <span>Project 1</span>
+    </button>
+
+    <button mat-menu-item class="">
+        <span>Project 2</span>
+    </button>
+
+    <button mat-menu-item class="">
+        <span>Project 3</span>
+    </button>
+
+</mat-menu>
+
+
 
         </div>
 
@@ -29,14 +39,14 @@
                     class="user-button">
                 <div fxLayout="row" fxLayoutAlign="center center">
                     <img class="avatar mr-0 mr-sm-16" src="assets/images/avatars/Velazquez.jpg">
-                    <span class="username mr-12" fxHide fxShow.gt-sm>Charlie Adams</span>
+                    <span class="username mr-12" fxHide fxShow.gt-sm>Issam KATTOUSS</span>
                     <mat-icon class="s-16" fxHide.xs>keyboard_arrow_down</mat-icon>
                 </div>
             </button>
 
             <mat-menu #userMenu="matMenu" [overlapTrigger]="false">
 
-                <button mat-menu-item>
+                <button mat-menu-item  routerLink="/profile">
                     <mat-icon>account_circle</mat-icon>
                     <span>My Profile</span>
                 </button>
@@ -55,7 +65,6 @@
 
             <div class="toolbar-separator"></div>
 
-            <fuse-search-bar (input)="search($event)"></fuse-search-bar>
 
             <div class="toolbar-separator"></div>
 
@@ -63,8 +72,9 @@
                     class="language-button"
                     [matMenuTriggerFor]="languageMenu">
                 <div fxLayout="row" fxLayoutAlign="center center">
-                    <img class="flag mr-8" [src]="'assets/icons/flags/'+selectedLanguage.flag+'.png'">
-                    <span class="iso text-uppercase">{{selectedLanguage.id}}</span>
+                    <!-- <img class="flag mr-8" [src]="'assets/icons/flags/'+selectedLanguage.flag+'.png'">
+                    <span class="iso text-uppercase">{{selectedLanguage.id}}</span> -->
+                    FR
                 </div>
             </button>
 
@@ -77,11 +87,7 @@
                     </span>
                 </button>
 
-                <button mat-menu-item [routerLink]="'/components/multi-language'">
-                    <div fxLayout="row" fxLayoutAlign="start center">
-                        <span>Learn more</span>
-                    </div>
-                </button>
+
 
             </mat-menu>
 

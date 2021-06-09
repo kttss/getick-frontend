@@ -1,0 +1,26 @@
+<div id="timeline" class="p-24" fxLayout="row wrap">
+  <div class="timeline-sidebar" fxLayout="column" fxFlex="100" fxFlex.gt-sm="45" fxFlex.gt-md="35">
+    <div class="profile-box latest-activity" fxLayout="column">
+      <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+        <div class="title">Latest Activity</div>
+        <div class="more secondary-text">See All</div>
+      </header>
+
+      <div class="content" fxLayout="row wrap">
+        <div class="activities">
+          <div class="activity" fxLayout="row" fxLayoutAlign="start start" *ngFor="let activity of timeline.activities">
+            <img [src]="activity.user.avatar" class="avatar" alt="{{ activity.user.name }}" />
+
+            <div fxLayout="column">
+              <div>
+                <span class="username">{{ activity.user.name }}</span>
+                <span class="message"> {{ activity.message }}</span>
+              </div>
+              <span class="time secondary-text">{{ activity.time }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

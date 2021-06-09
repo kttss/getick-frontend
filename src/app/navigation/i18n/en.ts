@@ -20,6 +20,9 @@ export const locale = {
             'CONTACTS'    : 'Contacts',
             'TODO'        : 'To-Do',
             'SCRUMBOARD'  : 'Scrumboard'
+        },
+        'SIGN_UP':{
+          'TITLE':'test ccc'
         }
     }
 };
