@@ -5,6 +5,8 @@ import { takeUntil } from 'rxjs/operators';
 import { fuseAnimations } from '@fuse/animations';
 
 import { AcademyCoursesService } from 'app/main/apps/academy/courses.service';
+import { MatDialog } from '@angular/material';
+import { AddProjectsComponent } from './add-projects/add-projects.component';
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
@@ -50,7 +52,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   // Private
   private _unsubscribeAll: Subject<any>;
 
-  constructor() {
+  constructor(public dialog: MatDialog) {
     // Set the defaults;
     this.searchTerm = '';
 
@@ -66,5 +68,16 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
+  }
+
+  addProject(){
+     const dialogRef = this.dialog.open(AddProjectsComponent, {
+      width: '600px',
+      data: { name: 'issam', animal: 'ktttss' }
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed', result);
+    });
   }
 }

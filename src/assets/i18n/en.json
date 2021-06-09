@@ -60,6 +60,13 @@
   },
   "projects": {
     "title": "Projects",
+    "add_project":{
+      "title":"Add Project",
+      "name":"Project Name",
+      "start":"Start At",
+      "end":"End At",
+      "add":"Add"
+    },
     "description": "bla bla bla bla bla",
     "updated": "Updated",
     "search": {
