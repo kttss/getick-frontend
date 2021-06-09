@@ -2,10 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProjectsComponent } from './projects.component';
 import { RouterModule } from '@angular/router';
-import { MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatSelectModule } from '@angular/material';
+import { MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatSelectModule, MatDialogModule, MatDatepicker, MatDatepickerModule } from '@angular/material';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { FuseSidebarModule } from '@fuse/components';
 import { TranslateModule } from '@ngx-translate/core';
+import { AddProjectsComponent } from './add-projects/add-projects.component';
 
 const routes = [
   {
@@ -15,7 +16,7 @@ const routes = [
 ];
 
 @NgModule({
-  declarations: [ProjectsComponent],
+  declarations: [ProjectsComponent, AddProjectsComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -26,7 +27,10 @@ const routes = [
     MatSelectModule,
     TranslateModule,
     FuseSharedModule,
-    FuseSidebarModule
-  ]
+    FuseSidebarModule,
+    MatDialogModule,
+    MatDatepickerModule    
+  ],
+  entryComponents: [AddProjectsComponent]
 })
 export class ProjectsModule {}
