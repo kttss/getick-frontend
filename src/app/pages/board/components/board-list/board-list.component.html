@@ -1,11 +1,9 @@
 <div class="list mat-elevation-z1" fxLayout="column">
   <!-- LIST HEADER -->
-  <div class="list-header" fxFlex fxLayout="row" fxLayoutAlign="space-between center">
-    <!-- <scrumboard-board-edit-list-name
-          fxFlex="1 0 auto"
-          [list]="list"
-          (listNameChanged)="onListNameChanged($event)">
-      </scrumboard-board-edit-list-name> -->
+  <div class="list-header" fxLayout="row" fxLayoutAlign="space-between center">
+    <div fxFlex="1 0 auto" class="list-header-name">
+      {{ list.name }}
+    </div>
 
     <div fxFlex="0 1 auto">
       <button mat-icon-button class="list-header-option-button" [matMenuTriggerFor]="listMenu">
@@ -28,15 +26,14 @@
       fusePerfectScrollbar
       #listScroll
     >
-      {{ getById }}
-      <!-- <app-board-card
+      <app-board-card
         ngxDraggable
         (click)="openCardDialog(cardId)"
         class="scrumboard-board-card ngx-dnd-item"
         *ngFor="let cardId of list.idCards"
         [model]="cardId"
         [cardId]="cardId"
-      ></app-board-card> -->
+      ></app-board-card>
 
       <!-- <scrumboard-board-card ngxDraggable
                                  (click)="openCardDialog(cardId)"

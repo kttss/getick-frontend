@@ -108,6 +108,10 @@ mat-sidenav-container {
       position: relative;
 
       .board-content {
+        flex-direction: row;
+        /* box-sizing: border-box; */
+        display: flex;
+        height: 100vh !important;
         position: absolute;
         top: 0;
         right: 0;

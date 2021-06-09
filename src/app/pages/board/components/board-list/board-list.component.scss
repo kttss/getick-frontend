@@ -1,81 +1,100 @@
 @import 'src/@fuse/scss/fuse';
 
-// width: 344px;
-// min-width: 344px;
-// max-width: 344px;
-// padding-right: 24px !important;
-// height: 100%;
+app-board-list {
+  width: 344px;
+  min-width: 344px;
+  max-width: 344px;
+  padding-right: 24px !important;
+  height: 100%;
 
-.list {
-  max-height: 100%;
-  border-radius: 2px;
-  transition: box-shadow 150ms ease;
+  .list {
+    max-height: 100%;
+    border-radius: 2px;
+    transition: box-shadow 150ms ease;
 
-  .list-header {
-    height: 64px;
-    min-height: 64px;
-    padding: 0 8px 0 16px;
-    border-bottom: 1px solid;
+    .list-header {
+      height: 64px;
+      min-height: 64px;
+      padding: 0 8px 0 16px;
+      border-bottom: 1px solid;
+      border-bottom-color: rgba(0, 0, 0, 0.12);
+      display: flex;
+      justify-content: space-between;
+      background: #f5f5f5;
 
-    @include media-breakpoint('lt-md') {
-      height: 48px;
-      min-height: 48px;
+      @include media-breakpoint('lt-md') {
+        height: 48px;
+        min-height: 48px;
+      }
     }
-  }
 
-  .list-content {
-    position: relative;
-    min-height: 0;
-    overflow: hidden;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-
-    .list-cards {
+    .list-content {
       position: relative;
-      min-height: 32px;
-      padding: 0 16px;
+      min-height: 0;
+      overflow: hidden;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      background: #f5f5f5;
+
+      .list-cards {
+        position: relative;
+        min-height: 32px;
+        padding: 0 16px;
+      }
+    }
+
+    .list-header-name {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+    }
+
+    .list-footer {
+      display: flex;
+      flex-direction: column;
+      flex: 1 0 auto;
+      border-top: 1px solid;
+      border-top-color: rgba(0, 0, 0, 0.12);
+      min-height: 48px;
+      background: #f5f5f5;
     }
   }
 
-  .list-footer {
-    display: flex;
-    flex-direction: column;
-    flex: 1 0 auto;
-    border-top: 1px solid;
-    min-height: 48px;
+  .ngx-dnd-content {
+    user-select: none;
   }
-}
 
-.ngx-dnd-content {
-  user-select: none;
-}
+  .gu-mirror {
+    position: fixed !important;
+    margin: 0 !important;
+    z-index: 9999 !important;
+    opacity: 0.8;
+    -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=80)';
+    filter: alpha(opacity=80);
 
-.gu-mirror {
-  position: fixed !important;
-  margin: 0 !important;
-  z-index: 9999 !important;
-  opacity: 0.8;
-  -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=80)';
-  filter: alpha(opacity=80);
-
-  > .list {
-    @include mat-elevation(7);
+    > .list {
+      @include mat-elevation(7);
+    }
   }
-}
 
-.gu-hide {
-  display: none !important;
-}
+  .gu-hide {
+    display: none !important;
+  }
 
-.gu-unselectable {
-  -webkit-user-select: none !important;
-  -moz-user-select: none !important;
-  -ms-user-select: none !important;
-  user-select: none !important;
-}
+  .gu-unselectable {
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+  }
 
-.gu-transit {
-  opacity: 0.2;
-  -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=20)';
-  filter: alpha(opacity=20);
+  .gu-transit {
+    opacity: 0.2;
+    -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=20)';
+    filter: alpha(opacity=20);
+  }
 }
