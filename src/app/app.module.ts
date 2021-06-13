@@ -55,6 +55,10 @@ const appRoutes: Routes = [
     loadChildren: () => import('./pages/board/board.module').then((m) => m.BoardModule)
   },
   {
+    path: 'chat',
+    loadChildren: () => import('./pages/chat/chat.module').then((m) => m.ChatModule)
+  },
+  {
     path: 'apps',
     loadChildren: () => import('./main/apps/apps.module').then((m) => m.AppsModule)
   },

@@ -165,6 +165,11 @@
       .add-project {
         border: 4px #b8b8cb dashed;
         background-color: transparent !important;
+        cursor: pointer;
+        &:hover {
+          border: 4px #b8b8cb dashed;
+          background-color: transparent !important;
+        }
         mat-icon {
           color: #b8b8cb;
           font-size: 70px;

@@ -1,0 +1,46 @@
+<h1 mat-dialog-title>{{ 'projects.form.title' | translate }}</h1>
+<div *ngIf="projectForm" id="register-form">
+  <form name="projectForm" [formGroup]="projectForm" fxLayout="column" novalidate>
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'projects.form.name' | translate }}</mat-label>
+      <input matInput formControlName="name" />
+      <mat-error>
+        {{ 'field_is_required' | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'projects.form.description' | translate }}</mat-label>
+      <input matInput formControlName="description" />
+      <mat-error>
+        {{ 'field_is_required' | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <div fxLayout="column" fxLayoutAlign="start center" fxFlex="1 0 auto">
+      <mat-form-field color="accent" appearance="outline">
+        <mat-label>{{ 'projects.form.start' | translate }}</mat-label>
+        <input matInput [matDatepicker]="picker1" formControlName="startAt" />
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+        <mat-error>
+          {{ 'field_is_required' | translate }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field color="accent" appearance="outline">
+        <mat-label>{{ 'projects.form.end' | translate }}</mat-label>
+        <input matInput [matDatepicker]="picker2" formControlName="endAt" />
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2 color="primary"></mat-datepicker>
+        <mat-error>
+          {{ 'field_is_required' | translate }}
+        </mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="accent" class="submit-button" aria-label="CREATE PROJECT" [disabled]="projectForm.invalid">
+        {{ 'projects.form.add' | translate }}
+      </button>
+    </div>
+  </form>
+</div>

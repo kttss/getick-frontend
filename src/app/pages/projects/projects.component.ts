@@ -6,7 +6,7 @@ import { fuseAnimations } from '@fuse/animations';
 
 import { AcademyCoursesService } from 'app/main/apps/academy/courses.service';
 import { MatDialog } from '@angular/material';
-import { AddProjectsComponent } from './add-projects/add-projects.component';
+import { AddProjectsComponent } from './dialogs/add-projects/add-projects.component';
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
@@ -41,11 +41,6 @@ export class ProjectsComponent implements OnInit, OnDestroy {
       name: 'Project 5',
       description: '.........',
       updateAt: ' Nov 01, 2017'
-    },
-    {
-      name: 'Project 6',
-      description: '.........',
-      updateAt: ' Nov 01, 2017'
     }
   ];
 
@@ -70,8 +65,8 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.complete();
   }
 
-  addProject(){
-     const dialogRef = this.dialog.open(AddProjectsComponent, {
+  addProject() {
+    const dialogRef = this.dialog.open(AddProjectsComponent, {
       width: '600px',
       data: { name: 'issam', animal: 'ktttss' }
     });
