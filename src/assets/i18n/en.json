@@ -75,6 +75,15 @@
       "placeholder": "typing..."
     }
   },
+
+  "menu": {
+    "title": "",
+    "dashboard": "Dashboard",
+    "profil": "Profil",
+    "projects": "Projects",
+    "chat": "chat",
+    "board": "Board"
+  },
   "field_is_required": "field is required",
   "email_is_not_valid": "Please enter a valid email address"
 }
