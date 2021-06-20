@@ -28,7 +28,8 @@
       "forgot_password": "forgot Password?",
       "login": "Login",
       "dont_have_an_account": "Don't have an account",
-      "create_an_account": "Create an account"
+      "create_an_account": "Create an account",
+      "incorrect": "email or password is incorrect"
     }
   },
   "forget": {

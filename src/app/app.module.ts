@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
@@ -21,6 +21,8 @@ import { FakeDbService } from 'app/fake-db/fake-db.service';
 import { AppComponent } from 'app/app.component';
 import { AppStoreModule } from 'app/store/store.module';
 import { LayoutModule } from 'app/layout/layout.module';
+import { AuthInterceptor } from './services/auth.interceptor';
+import { IsAuthGuard } from './services/is-auth.guard';
 
 declare module '@angular/core' {
   interface ModuleWithProviders<T = any> {
@@ -44,23 +46,28 @@ const appRoutes: Routes = [
   },
   {
     path: 'profile',
-    loadChildren: () => import('./pages/profile/profile.module').then((m) => m.ProfileModule)
+    loadChildren: () => import('./pages/profile/profile.module').then((m) => m.ProfileModule),
+    canActivate: [IsAuthGuard]
   },
   {
     path: 'projects',
-    loadChildren: () => import('./pages/projects/projects.module').then((m) => m.ProjectsModule)
+    loadChildren: () => import('./pages/projects/projects.module').then((m) => m.ProjectsModule),
+    canActivate: [IsAuthGuard]
   },
   {
     path: 'board',
-    loadChildren: () => import('./pages/board/board.module').then((m) => m.BoardModule)
+    loadChildren: () => import('./pages/board/board.module').then((m) => m.BoardModule),
+    canActivate: [IsAuthGuard]
   },
   {
     path: 'chat',
-    loadChildren: () => import('./pages/chat/chat.module').then((m) => m.ChatModule)
+    loadChildren: () => import('./pages/chat/chat.module').then((m) => m.ChatModule),
+    canActivate: [IsAuthGuard]
   },
   {
     path: 'dashboard',
-    loadChildren: () => import('./pages/dashboard/dashboard.module').then((m) => m.DashboardModule)
+    loadChildren: () => import('./pages/dashboard/dashboard.module').then((m) => m.DashboardModule),
+    canActivate: [IsAuthGuard]
   },
   {
     path: 'apps',
@@ -130,6 +137,13 @@ export function createTranslateLoader(http: HttpClient) {
     // App modules
     LayoutModule,
     AppStoreModule
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
