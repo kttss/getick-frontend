@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -14,6 +14,7 @@ import { EditProfileComponent } from '../../dialogs/edit-profile/edit-profile.co
   animations: fuseAnimations
 })
 export class AboutComponent implements OnInit, OnDestroy {
+  @Input() user;
   about: any = {
     general: {
       gender: 'Male',
@@ -103,7 +104,7 @@ export class AboutComponent implements OnInit, OnDestroy {
   openDialog(): void {
     const dialogRef = this.dialog.open(EditProfileComponent, {
       width: '600px',
-      data: { name: 'issam', animal: 'ktttss' }
+      data: { lastname: this.user.lastname, firstname: this.user.firstname, role: this.user.role, email: this.user.email }
     });
 
     dialogRef.afterClosed().subscribe((result) => {

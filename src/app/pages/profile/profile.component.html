@@ -21,7 +21,7 @@
   <div class="content">
     <mat-tab-group dynamicHeight="true">
       <mat-tab label="{{ 'profile.about' | translate }}">
-        <app-about></app-about>
+        <app-about [user]="user"></app-about>
       </mat-tab>
 
       <mat-tab label="{{ 'profile.historic' | translate }}">

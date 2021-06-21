@@ -11,22 +11,22 @@
       <div class="content">
         <div class="info-line">
           <div class="title">{{ 'profile.first_name' | translate }}</div>
-          <div class="info">Issam</div>
+          <div class="info">{{ user.firstname }}</div>
         </div>
 
         <div class="info-line">
           <div class="title">{{ 'profile.last_name' | translate }}</div>
-          <div class="info">KATTOUSS</div>
+          <div class="info">{{ user.lastname }}</div>
         </div>
 
         <div class="info-line">
           <div class="title">{{ 'profile.email' | translate }}</div>
-          <div class="info">issam.kattouss@gmail.com</div>
+          <div class="info">{{ user.email }}</div>
         </div>
 
         <div class="info-line">
           <div class="title">{{ 'profile.role' | translate }}</div>
-          <div class="info">chef de projet</div>
+          <div class="info">{{ user.role }}</div>
         </div>
       </div>
     </div>
