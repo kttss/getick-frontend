@@ -18,7 +18,12 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
-                "lodash","chart.js","@swimlane/dragula","ngrx-store-freeze","@swimlane/ngx-datatable"
+              "lodash",
+              "chart.js",
+              "@swimlane/dragula",
+              "ngrx-store-freeze",
+              "@swimlane/ngx-datatable",
+              "socket.io-client"
             ],
             "aot": false,
             "outputPath": "dist/fuse",
@@ -26,14 +31,8 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              "src/app/main/angular-material-elements"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets", "src/app/main/angular-material-elements"],
+            "styles": ["src/styles.scss"],
             "scripts": [],
             "showCircularDependencies": false
           },
@@ -121,29 +120,16 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.scss"],
             "scripts": []
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "**/src/app/fake-db/**/*",
-              "**/src/assets/angular-material-examples/**/*"
-            ]
+            "tsConfig": ["tsconfig.app.json", "tsconfig.spec.json", "e2e/tsconfig.json"],
+            "exclude": ["**/node_modules/**", "**/src/app/fake-db/**/*", "**/src/assets/angular-material-examples/**/*"]
           }
         },
         "e2e": {

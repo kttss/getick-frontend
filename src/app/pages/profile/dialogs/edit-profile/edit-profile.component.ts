@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-edit-profile',
@@ -9,9 +9,14 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 })
 export class EditProfileComponent implements OnInit {
   editForm: FormGroup;
-  constructor(private _formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data) {}
+  constructor(
+    public dialogRef: MatDialogRef<EditProfileComponent>,
+    private _formBuilder: FormBuilder,
+    @Inject(MAT_DIALOG_DATA) public data
+  ) {}
 
   ngOnInit(): void {
+    console.log(this.data);
     this.editForm = this._formBuilder.group({
       firstname: [this.data.firstname, Validators.required],
       lastname: [this.data.lastname, Validators.required],
@@ -20,5 +25,7 @@ export class EditProfileComponent implements OnInit {
     });
   }
 
-  onSubmit() {}
+  onSubmit() {
+    this.dialogRef.close(this.editForm.value);
+  }
 }

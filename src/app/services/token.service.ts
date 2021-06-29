@@ -15,7 +15,7 @@ export class TokenService {
 
   getToken(): string {
     const token = localStorage.getItem('token');
-    return token ? JSON.stringify(token) : null;
+    return token ? String(token) : null;
   }
 
   decodeToken(token: string) {

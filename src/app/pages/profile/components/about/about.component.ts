@@ -5,6 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 import { fuseAnimations } from '@fuse/animations';
 import { MatDialog } from '@angular/material';
 import { EditProfileComponent } from '../../dialogs/edit-profile/edit-profile.component';
+import { UserService } from 'app/services/user.service';
 
 @Component({
   selector: 'app-about',
@@ -95,7 +96,7 @@ export class AboutComponent implements OnInit, OnDestroy {
   // Private
   private _unsubscribeAll: Subject<any>;
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private userService: UserService) {
     this._unsubscribeAll = new Subject();
   }
 
@@ -108,7 +109,21 @@ export class AboutComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed', result);
+      const payloadUser = {
+        firstname: result.firstname,
+        lastname: result.lastname,
+        email: result.email,
+        role: result.role
+      };
+
+      this.userService.editProfile(this.user.id, payloadUser).subscribe(
+        (data) => {},
+        (err) => {
+          const updatedUser = { ...this.user, ...result };
+          this.user = updatedUser;
+          localStorage.setItem('user', JSON.stringify(updatedUser));
+        }
+      );
     });
   }
 

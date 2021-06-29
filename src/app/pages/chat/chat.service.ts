@@ -4,6 +4,10 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 import { FuseUtils } from '@fuse/utils';
+//import { Socket } from 'ngx-socket-io';
+//import { map } from 'rxjs/operators';
+import * as io from 'socket.io-client';
+import { environment } from 'environments/environment';
 
 @Injectable()
 export class ChatService implements Resolve<any> {
@@ -16,6 +20,8 @@ export class ChatService implements Resolve<any> {
   onUserUpdated: Subject<any>;
   onLeftSidenavViewChanged: Subject<any>;
   onRightSidenavViewChanged: Subject<any>;
+  socket: any;
+  messages: Subject<any> = new Subject<any>();
 
   constructor(private _httpClient: HttpClient) {
     // Set the defaults
@@ -31,6 +37,17 @@ export class ChatService implements Resolve<any> {
       this.chats = chats;
       this.user = user;
     });
+  }
+
+  connect() {
+    this.socket = io(environment.api_url);
+
+    this.socket.on('message', (data) => {
+      this.messages.next(data);
+    });
+  }
+  sendMsg(msg) {
+    this.socket.emit('message', msg);
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {

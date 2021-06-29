@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   hmr: false,
-  api_url: 'http://localhost:3000/'
+  api_url: 'http://localhost:3003/'
 };
 
 /*
