@@ -23,6 +23,10 @@ export class UserService {
     return this._http.get(environment.api_url + 'user/' + id);
   }
 
+  signup(payload) {
+    return this._http.post(environment.api_url + 'user', payload);
+  }
+
   test() {
     return this._http.get(environment.api_url + 'project');
   }

@@ -21,7 +21,7 @@
             matInput
             placeholder="{{ 'projects.search.placeholder' | translate }}"
             [(ngModel)]="searchTerm"
-            (input)="filterCoursesByTerm()"
+            (input)="filterProjectsByTerm()"
           />
         </mat-form-field>
       </div>
@@ -34,10 +34,11 @@
           fxFlex.gt-xs="50"
           fxFlex.gt-sm="33"
           [@animate]="{ value: '*', params: { y: '100%' } }"
+          (click)="editProject(project)"
         >
           <div class="course-content" fxLayout="column" fxFlex="1 1 auto">
             <div class="card-header" fxLayout="row" fxLayoutAlign="strat center">
-              <div class="card-logo">J</div>
+              <div class="card-logo">{{ project.name.substring(0, 1) }}</div>
             </div>
 
             <div class="content" fxLayout="column" fxLayoutAlign="center center" fxFlex="1 1 auto">
@@ -46,7 +47,7 @@
             </div>
 
             <div class="footer" fxLayout="row" fxLayoutAlign="center center">
-              <div class="updated">{{ 'projects.updated' | translate }} {{ project.updateAt }}</div>
+              <div class="updated">{{ 'projects.created' | translate }} {{ getFormatedDate(project.startAt) }}</div>
             </div>
           </div>
         </div>

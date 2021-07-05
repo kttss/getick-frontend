@@ -63,14 +63,18 @@
     "title": "Projects",
     "form": {
       "title": "Add Project",
+      "titleEdit": "Edit Project",
       "name": "Project Name",
       "description": "Description",
       "start": "Start At",
       "end": "End At",
-      "add": "Add"
+      "add": "Add",
+      "update": "update",
+      "project_added": "project has been added",
+      "project_updated": "project has been updated"
     },
     "description": "bla bla bla bla bla",
-    "updated": "Updated",
+    "created": "Created",
     "search": {
       "label": "search",
       "placeholder": "typing..."

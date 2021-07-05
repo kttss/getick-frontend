@@ -23,7 +23,7 @@ import { AppStoreModule } from 'app/store/store.module';
 import { LayoutModule } from 'app/layout/layout.module';
 import { AuthInterceptor } from './services/auth.interceptor';
 import { IsAuthGuard } from './services/is-auth.guard';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 declare module '@angular/core' {
   interface ModuleWithProviders<T = any> {
     ngModule: Type<T>;
@@ -136,7 +136,8 @@ export function createTranslateLoader(http: HttpClient) {
 
     // App modules
     LayoutModule,
-    AppStoreModule
+    AppStoreModule,
+    MatSnackBarModule
   ],
   providers: [
     {

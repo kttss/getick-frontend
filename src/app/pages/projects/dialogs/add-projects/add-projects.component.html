@@ -1,6 +1,6 @@
-<h1 mat-dialog-title>{{ 'projects.form.title' | translate }}</h1>
+<h1 mat-dialog-title>{{ isEdit ? ('projects.form.titleEdit' | translate) : ('projects.form.title' | translate) }}</h1>
 <div *ngIf="projectForm" id="register-form">
-  <form name="projectForm" [formGroup]="projectForm" fxLayout="column" novalidate>
+  <form name="projectForm" [formGroup]="projectForm" (ngSubmit)="onSubmit()" fxLayout="column" novalidate>
     <mat-form-field appearance="outline">
       <mat-label>{{ 'projects.form.name' | translate }}</mat-label>
       <input matInput formControlName="name" />
@@ -39,7 +39,7 @@
       </mat-form-field>
 
       <button mat-raised-button color="accent" class="submit-button" aria-label="CREATE PROJECT" [disabled]="projectForm.invalid">
-        {{ 'projects.form.add' | translate }}
+        {{ isEdit ? ('projects.form.update' | translate) : ('projects.form.add' | translate) }}
       </button>
     </div>
   </form>
