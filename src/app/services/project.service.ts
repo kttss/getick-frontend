@@ -19,4 +19,12 @@ export class ProjectService {
   update(id, project) {
     return this._http.put(environment.api_url + 'project/' + id, project);
   }
+
+  getBoard(id) {
+    return this._http.get(environment.api_url + 'project/getBoard/' + id);
+  }
+
+  updateBoard(id, board) {
+    return this._http.post(environment.api_url + 'project/updateboard/' + id, { board });
+  }
 }

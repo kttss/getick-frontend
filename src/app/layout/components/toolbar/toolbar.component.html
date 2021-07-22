@@ -3,22 +3,14 @@
     <div fxFlex="1 0 auto" fxLayout="row" fxLayoutAlign="start center">
       <button mat-button [matMenuTriggerFor]="selectProject" class="user-button">
         <div fxLayout="row" fxLayoutAlign="center center">
-          <span class="username mr-12" fxHide fxShow.gt-sm>Project 1</span>
+          <span class="username mr-12" fxHide fxShow.gt-sm>{{ selectedProject?.name }}</span>
           <mat-icon class="s-16" fxHide.xs>keyboard_arrow_down</mat-icon>
         </div>
       </button>
 
       <mat-menu #selectProject="matMenu" [overlapTrigger]="false">
-        <button mat-menu-item>
-          <span>Project 1</span>
-        </button>
-
-        <button mat-menu-item class="">
-          <span>Project 2</span>
-        </button>
-
-        <button mat-menu-item class="">
-          <span>Project 3</span>
+        <button mat-menu-item *ngFor="let p of projects" (click)="onSelectProject(p)">
+          <span>{{ p.name }}</span>
         </button>
       </mat-menu>
     </div>

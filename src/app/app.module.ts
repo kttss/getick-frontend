@@ -70,6 +70,10 @@ const appRoutes: Routes = [
     canActivate: [IsAuthGuard]
   },
   {
+    path: 'confirmation',
+    loadChildren: () => import('./pages/confirmation/confirmation.module').then((m) => m.ConfirmationModule)
+  },
+  {
     path: 'apps',
     loadChildren: () => import('./main/apps/apps.module').then((m) => m.AppsModule)
   },

@@ -1,4 +1,4 @@
-<mat-sidenav-container>
+<mat-sidenav-container *ngIf="board">
   <div id="board">
     <!-- HEADER -->
     <div class="header p-16 p-md-24" [ngClass]="board.settings.color" fxLayout="column">
@@ -65,6 +65,13 @@
           [list]="list"
           [@animate]="{ value: '*', params: { duration: '350ms', x: '100%' } }"
         ></app-board-list>
+        <app-add-list
+          class="new-list-wrapper"
+          (listAdded)="onListAdd($event)"
+          ngxDraggable
+          [moves]="false"
+          [@animate]="{ value: '*', params: { duration: '350ms', x: '100%' } }"
+        ></app-add-list>
         <!-- <scrumboard-board-list
               class="scrumboard-board-list list-wrapper ngx-dnd-item"
               ngxDraggable

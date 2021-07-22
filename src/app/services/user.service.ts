@@ -27,7 +27,11 @@ export class UserService {
     return this._http.post(environment.api_url + 'user', payload);
   }
 
-  test() {
-    return this._http.get(environment.api_url + 'project');
+  confirmation(userId, token) {
+    return this._http.get(environment.api_url + 'user/' + userId + '/' + token);
+  }
+
+  getAllUsers() {
+    return this._http.get(environment.api_url + 'user');
   }
 }

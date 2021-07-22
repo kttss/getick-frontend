@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
+import { Board } from 'app/main/apps/scrumboard/board.model';
 import { AlertService } from 'app/services/alert.service';
 import { ProjectService } from 'app/services/project.service';
 
@@ -40,7 +41,8 @@ export class AddProjectsComponent implements OnInit {
         this.dialogRef.close(true);
       });
     } else {
-      this._projectService.create({ ...this.projectForm.value }).subscribe((data) => {
+      const newBoard = new Board({});
+      this._projectService.create({ ...this.projectForm.value, board: JSON.stringify(newBoard) }).subscribe((data) => {
         this._alertService.success(this._translate.instant('projects.form.project_added'));
         this.dialogRef.close(true);
       });

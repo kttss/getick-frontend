@@ -2,8 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { ProjectService } from 'app/services/project.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ScrumboardService implements Resolve<any> {
   boards: any[];
   routeParams: any;
@@ -17,10 +20,10 @@ export class ScrumboardService implements Resolve<any> {
    *
    * @param {HttpClient} _httpClient
    */
-  constructor(private _httpClient: HttpClient) {
+  constructor(private _httpClient: HttpClient, private _projectService: ProjectService) {
     // Set the defaults
     this.onBoardsChanged = new BehaviorSubject([]);
-    this.onBoardChanged = new BehaviorSubject([]);
+    this.onBoardChanged = new BehaviorSubject(null);
   }
 
   /**
@@ -34,9 +37,7 @@ export class ScrumboardService implements Resolve<any> {
     this.routeParams = route.params;
 
     return new Promise((resolve, reject) => {
-      Promise.all([this.getBoards()]).then(() => {
-        resolve();
-      }, reject);
+      Promise.all([this.getBoards()]).then(() => {}, reject);
     });
   }
 
@@ -48,6 +49,7 @@ export class ScrumboardService implements Resolve<any> {
   getBoards(): Promise<any> {
     return new Promise((resolve, reject) => {
       this._httpClient.get('api/scrumboard-boards').subscribe((response: any) => {
+        console.log('sss', response);
         this.boards = response;
         this.onBoardsChanged.next(this.boards);
         resolve(this.boards);
@@ -71,6 +73,11 @@ export class ScrumboardService implements Resolve<any> {
     });
   }
 
+  setBoard(board) {
+    this.board = board;
+    this.onBoardChanged.next(this.board);
+  }
+
   /**
    * Add card
    *
@@ -78,7 +85,8 @@ export class ScrumboardService implements Resolve<any> {
    * @param newCard
    * @returns {Promise<any>}
    */
-  addCard(listId, newCard): Promise<any> {
+  addCard(listId, newCard) {
+    this.board.lists;
     this.board.lists.map((list) => {
       if (list.id === listId) {
         return list.idCards.push(newCard.id);
@@ -86,20 +94,12 @@ export class ScrumboardService implements Resolve<any> {
     });
 
     this.board.cards.push(newCard);
-
-    return this.updateBoard();
+    this.updateBoard();
   }
 
-  /**
-   * Add list
-   *
-   * @param newList
-   * @returns {Promise<any>}
-   */
-  addList(newList): Promise<any> {
+  addList(newList) {
     this.board.lists.push(newList);
-
-    return this.updateBoard();
+    this.updateBoard();
   }
 
   /**
@@ -108,7 +108,7 @@ export class ScrumboardService implements Resolve<any> {
    * @param listId
    * @returns {Promise<any>}
    */
-  removeList(listId): Promise<any> {
+  removeList(listId) {
     const list = this.board.lists.find((_list) => {
       return _list.id === listId;
     });
@@ -121,7 +121,7 @@ export class ScrumboardService implements Resolve<any> {
 
     this.board.lists.splice(index, 1);
 
-    return this.updateBoard();
+    this.updateBoard();
   }
 
   /**
@@ -147,18 +147,11 @@ export class ScrumboardService implements Resolve<any> {
     this.updateBoard();
   }
 
-  /**
-   * Update board
-   *
-   * @returns {Promise<any>}
-   */
-  updateBoard(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this._httpClient.post('api/scrumboard-boards/' + this.board.id, this.board).subscribe((response) => {
-        this.onBoardChanged.next(this.board);
-        resolve(this.board);
-      }, reject);
-    });
+  updateBoard() {
+    this.onBoardChanged.next(this.board);
+    const proj = JSON.parse(localStorage.getItem('project'));
+
+    this._projectService.updateBoard(proj._id, JSON.stringify(this.board)).subscribe();
   }
 
   /**
@@ -183,8 +176,6 @@ export class ScrumboardService implements Resolve<any> {
    * @returns {Promise<any>}
    */
   createNewBoard(board): Promise<any> {
-    console.log('board', board);
-
     return new Promise((resolve, reject) => {
       this._httpClient.post('api/scrumboard-boards/' + board.id, board).subscribe((response) => {
         resolve(board);

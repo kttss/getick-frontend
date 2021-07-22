@@ -6,6 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { FusePerfectScrollbarDirective } from '@fuse/directives/fuse-perfect-scrollbar/fuse-perfect-scrollbar.directive';
 
 import { ChatService } from 'app/pages/chat/chat.service';
+import { MessagesService } from 'app/services/messages.service';
 
 @Component({
   selector: 'app-chat-view',
@@ -32,7 +33,7 @@ export class ChatViewComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private _unsubscribeAll: Subject<any>;
 
-  constructor(private _chatService: ChatService) {
+  constructor(private _chatService: ChatService, private messageService: MessagesService) {
     this._unsubscribeAll = new Subject();
   }
 
@@ -112,6 +113,10 @@ export class ChatViewComponent implements OnInit, OnDestroy, AfterViewInit {
       message: this.replyForm.form.value.message,
       time: new Date().toISOString()
     };
+
+    this.messageService.sendMessage({ content: this.replyForm.form.value.message, receiver_id: this.contact.id }).subscribe((data) => {
+      console.log('ss', data);
+    });
 
     // Add the message to the chat
     this.dialog.push(message);

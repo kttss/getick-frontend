@@ -10,6 +10,7 @@ import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 import { navigation } from 'app/navigation/navigation';
 import { TokenService } from 'app/services/token.service';
 import { Router } from '@angular/router';
+import { ProjectService } from 'app/services/project.service';
 
 @Component({
   selector: 'toolbar',
@@ -26,6 +27,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   selectedLanguage: any;
   userStatusOptions: any[];
   user: any;
+  projects = [];
+  selectedProject: any;
 
   // Private
   private _unsubscribeAll: Subject<any>;
@@ -42,7 +45,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     private _fuseSidebarService: FuseSidebarService,
     private _translateService: TranslateService,
     private tokenService: TokenService,
-    private router: Router
+    private router: Router,
+    private _projectService: ProjectService
   ) {
     // Set the defaults
     this.userStatusOptions = [
@@ -110,6 +114,25 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
     // Set the selected language from default languages
     this.selectedLanguage = _.find(this.languages, { id: this._translateService.currentLang });
+
+    this._projectService.get().subscribe((projects: any[]) => {
+      this.projects = projects;
+
+      const selectedProject = localStorage.getItem('project');
+      if (selectedProject) {
+        this.selectedProject = JSON.parse(selectedProject);
+        console.log('already selected');
+      } else {
+        localStorage.setItem('project', JSON.stringify(projects[0]));
+        this.selectedProject = projects[0];
+        console.log('set project');
+      }
+    });
+  }
+
+  onSelectProject(project) {
+    this.selectedProject = project;
+    localStorage.setItem('project', JSON.stringify(project));
   }
 
   /**
