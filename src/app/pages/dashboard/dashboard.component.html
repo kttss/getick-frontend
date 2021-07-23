@@ -299,57 +299,42 @@
 
                 <mat-table #table [dataSource]="widget11.dataSource">
                   <!-- Avatar Column -->
-                  <ng-container matColumnDef="avatar">
+                  <ng-container matColumnDef="photo">
                     <mat-header-cell fxFlex="96px" *matHeaderCellDef></mat-header-cell>
                     <mat-cell fxFlex="96px" *matCellDef="let contact">
-                      <img class="avatar" *ngIf="contact.avatar" [alt]="contact.name" [src]="contact.avatar" />
+                      <img
+                        class="avatar"
+                        *ngIf="contact.photo"
+                        [alt]="contact.firstname"
+                        [src]="contact.photo ? getPhoto(contact.photo) : './../../../assets/images/user-photo.jpeg'"
+                      />
                     </mat-cell>
                   </ng-container>
 
                   <!-- Name Column -->
-                  <ng-container matColumnDef="name">
-                    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+                  <ng-container matColumnDef="firstname">
+                    <mat-header-cell *matHeaderCellDef>First Name</mat-header-cell>
                     <mat-cell *matCellDef="let contact">
-                      <p class="text-truncate font-weight-600">{{ contact.name }} {{ contact.lastName }}</p>
+                      <p class="text-truncate font-weight-600">{{ contact.firstname }}</p>
                     </mat-cell>
                   </ng-container>
 
                   <!-- Position Column -->
-                  <ng-container matColumnDef="position">
-                    <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Position </mat-header-cell>
+                  <ng-container matColumnDef="lastname">
+                    <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>last name </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxHide fxShow.gt-sm>
                       <p class="position text-truncate">
-                        {{ contact.position }}
+                        {{ contact.lastname }}
                       </p>
                     </mat-cell>
                   </ng-container>
 
                   <!-- Office Column -->
-                  <ng-container matColumnDef="office">
-                    <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Office </mat-header-cell>
+                  <ng-container matColumnDef="email">
+                    <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Email </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxHide fxShow.gt-md>
                       <p class="office text-truncate">
-                        {{ contact.office }}
-                      </p>
-                    </mat-cell>
-                  </ng-container>
-
-                  <!-- Email Column -->
-                  <ng-container matColumnDef="email">
-                    <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Email </mat-header-cell>
-                    <mat-cell *matCellDef="let contact" fxHide fxShow.gt-sm>
-                      <p class="email text-truncate">
                         {{ contact.email }}
-                      </p>
-                    </mat-cell>
-                  </ng-container>
-
-                  <!-- Phone Column -->
-                  <ng-container matColumnDef="phone">
-                    <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Phone </mat-header-cell>
-                    <mat-cell *matCellDef="let contact" fxHide fxShow.gt-md>
-                      <p class="phone text-truncate">
-                        {{ contact.phone }}
                       </p>
                     </mat-cell>
                   </ng-container>

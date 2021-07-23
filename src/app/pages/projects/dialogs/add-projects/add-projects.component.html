@@ -38,6 +38,39 @@
         </mat-error>
       </mat-form-field>
 
+      <div class="invite-members">
+        <div class="members" fxFlex="0 1 auto">
+          <button mat-icon-button type="button" class="" [matMenuTriggerFor]="membersMenu">
+            invite Member <mat-icon>account_circle</mat-icon>
+          </button>
+
+          <mat-menu #membersMenu="matMenu" [overlapTrigger]="false">
+            <div fxFlex fxLayout="column" class="scrumboard-members-menu" (click)="$event.stopPropagation()">
+              <!-- [checked]="card.idMembers.indexOf(member.id) > -1" -->
+              <mat-checkbox class="member px-16" *ngFor="let member of users" (change)="toggleInArray(member.id)">
+                <div fxLayout="row" fxLayoutAlign="start center">
+                  <img
+                    [alt]="member.lastname + ' ' + member.firstname"
+                    [src]="member.photo ? getphoto(member.photo) : './../../../../../assets/images/user-photo.jpeg'"
+                    class="avatar"
+                  />
+                  <p class="member-name">{{ member.lastname + ' ' + member.firstname }}</p>
+                </div>
+              </mat-checkbox>
+            </div>
+          </mat-menu>
+        </div>
+        <!-- [matTooltip]="board.members | getById: memberId:'name'" -->
+        <div class="list-card-members" fxLayout="row">
+          <div class="list-card-member" *ngFor="let member of getSelectedUsers()">
+            <img
+              class="list-card-member-avatar"
+              [src]="member.photo ? getphoto(member.photo) : './../../../../../assets/images/user-photo.jpeg'"
+            />
+          </div>
+        </div>
+      </div>
+
       <button mat-raised-button color="accent" class="submit-button" aria-label="CREATE PROJECT" [disabled]="projectForm.invalid">
         {{ isEdit ? ('projects.form.update' | translate) : ('projects.form.add' | translate) }}
       </button>

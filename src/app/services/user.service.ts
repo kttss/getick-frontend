@@ -34,4 +34,8 @@ export class UserService {
   getAllUsers() {
     return this._http.get(environment.api_url + 'user');
   }
+
+  addPhoto(id, photo) {
+    return this._http.post(environment.api_url + 'user/photo/' + id, { photo });
+  }
 }

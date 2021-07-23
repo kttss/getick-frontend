@@ -11,6 +11,7 @@ import { navigation } from 'app/navigation/navigation';
 import { TokenService } from 'app/services/token.service';
 import { Router } from '@angular/router';
 import { ProjectService } from 'app/services/project.service';
+import { UploadService } from 'app/services/upload.service';
 
 @Component({
   selector: 'toolbar',
@@ -46,7 +47,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     private _translateService: TranslateService,
     private tokenService: TokenService,
     private router: Router,
-    private _projectService: ProjectService
+    private _projectService: ProjectService,
+    private _uploadService: UploadService
   ) {
     // Set the defaults
     this.userStatusOptions = [
@@ -119,13 +121,12 @@ export class ToolbarComponent implements OnInit, OnDestroy {
       this.projects = projects;
 
       const selectedProject = localStorage.getItem('project');
+      console.log(this.projects);
       if (selectedProject) {
         this.selectedProject = JSON.parse(selectedProject);
-        console.log('already selected');
-      } else {
+      } else if (projects.length) {
         localStorage.setItem('project', JSON.stringify(projects[0]));
         this.selectedProject = projects[0];
-        console.log('set project');
       }
     });
   }
@@ -183,5 +184,9 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   logout() {
     localStorage.clear();
     this.router.navigate(['/login']);
+  }
+
+  getPhoto() {
+    return this._uploadService.getUrl(this.user.photo);
   }
 }

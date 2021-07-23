@@ -7,7 +7,12 @@
       <!-- USER AVATAR WRAPPER -->
       <div class="avatar-wrapper">
         <!-- USER AVATAR -->
-        <img (click)="changeLeftSidenavView('user')" src="{{ user.avatar }}" class="mat-avatar avatar" alt="{{ user.name }}" />
+        <img
+          (click)="changeLeftSidenavView('user')"
+          src="{{ user.avatar ? user.avatar : './../../../../../../assets/images/user-photo.jpeg' }}"
+          class="mat-avatar avatar"
+          alt="{{ user.name }}"
+        />
         <!-- / USER AVATAR -->
 
         <mat-icon class="s-16 status" [ngClass]="user.status" [matMenuTriggerFor]="userStatusMenu"></mat-icon>
@@ -93,7 +98,15 @@
       >
         <div fxLayout="row" fxLayoutAlign="start center">
           <div class="avatar-wrapper" fxFlex="0 1 auto" fxLayoutAlign="center center">
-            <img class="avatar" [src]="contacts | getById: chat.contactId:'avatar'" alt="{{ contacts | getById: chat.contactId:'name' }}" />
+            <img
+              class="avatar"
+              [src]="
+                (contacts | getById: chat.contactId:'avatar')
+                  ? (contacts | getById: chat.contactId:'avatar')
+                  : './../../../../../assets/images/user-photo.jpeg'
+              "
+              alt="{{ contacts | getById: chat.contactId:'name' }}"
+            />
             <mat-icon class="s-16 status" [ngClass]="contacts | getById: chat.contactId:'status'"></mat-icon>
           </div>
 
@@ -128,7 +141,11 @@
       >
         <div fxLayout="row" fxLayoutAlign="start center">
           <div class="avatar-wrapper" fxFlex="0 1 auto">
-            <img src="{{ contact.avatar }}" class="mat-avatar avatar" alt="{{ contact.name }}" />
+            <img
+              src="{{ contact.avatar ? user.avatar : './../../../../../../assets/images/user-photo.jpeg' }}"
+              class="mat-avatar avatar"
+              alt="{{ contact.name }}"
+            />
             <mat-icon class="s-16 status" [ngClass]="contact.status"></mat-icon>
           </div>
 

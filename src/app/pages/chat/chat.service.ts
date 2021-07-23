@@ -9,6 +9,7 @@ import { FuseUtils } from '@fuse/utils';
 import * as io from 'socket.io-client';
 import { environment } from 'environments/environment';
 import { TokenService } from 'app/services/token.service';
+import { UploadService } from 'app/services/upload.service';
 
 @Injectable()
 export class ChatService implements Resolve<any> {
@@ -27,7 +28,7 @@ export class ChatService implements Resolve<any> {
   listMessages: any[];
   connectedUser: any;
 
-  constructor(private _httpClient: HttpClient, private _tokenService: TokenService) {
+  constructor(private _httpClient: HttpClient, private _tokenService: TokenService, private _uploadservice: UploadService) {
     this.connectedUser = this._tokenService.getUser().id;
     // Set the defaults
     this.onChatSelected = new BehaviorSubject(null);
@@ -40,7 +41,10 @@ export class ChatService implements Resolve<any> {
       const userItem = contacts.find((e) => e.id === this.connectedUser);
       this.contacts = contacts;
       this.chats = chats;
+
       this.user = { ...userItem, chatList: [] };
+
+      console.log('dddd', userItem, this.user);
       this.listMessages = messages.sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1));
       this.onDataChanged.next();
     });
@@ -213,7 +217,7 @@ export class ChatService implements Resolve<any> {
       this._httpClient.get(environment.api_url + 'user').subscribe((response: any) => {
         const listContacts = response.map((e) => {
           return {
-            avatar: 'assets/images/avatars/Harper.jpg',
+            avatar: e.photo ? this._uploadservice.getUrl(e.photo) : '',
             id: e.id,
             mood: '',
             name: e.lastname + ' ' + e.firstname,

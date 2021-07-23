@@ -2,7 +2,7 @@
   <button *ngIf="!formActive" mat-button class="new-list-form-button" (click)="openForm()">
     <div fxLayout="row" fxLayoutAlign="start center">
       <mat-icon class="red">add</mat-icon>
-      <span>Add a list</span>
+      <span>{{ 'board.new_list' | translate }}</span>
     </div>
   </button>
 

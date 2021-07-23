@@ -1,12 +1,12 @@
 <div *ngIf="!formActive" class="add-card-button" (click)="openForm()" fxLayout="row" fxLayoutAlign="start center">
   <mat-icon class="s-20">add</mat-icon>
-  <div>Add a card</div>
+  <div>{{ 'board.new_ticket' | translate }}</div>
 </div>
 
 <div *ngIf="formActive" class="add-card-form-wrapper">
   <form [formGroup]="form" (submit)="onFormSubmit()" class="add-card-form" fxLayout="column">
     <mat-form-field fxFlex floatLabel="never">
-      <input #nameInput matInput formControlName="name" placeholder="Card title" autocomplete="off" required />
+      <input #nameInput matInput formControlName="name" placeholder="{{ 'board.ticket_title' | translate }}" autocomplete="off" required />
     </mat-form-field>
 
     <div class="pl-8" fxLayout="row" fxLayoutAlign="space-between center">

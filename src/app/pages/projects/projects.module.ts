@@ -10,7 +10,9 @@ import {
   MatSelectModule,
   MatDialogModule,
   MatDatepicker,
-  MatDatepickerModule
+  MatDatepickerModule,
+  MatMenuModule,
+  MatCheckboxModule
 } from '@angular/material';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { FuseSidebarModule } from '@fuse/components';
@@ -38,7 +40,9 @@ const routes = [
     FuseSharedModule,
     FuseSidebarModule,
     MatDialogModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatMenuModule,
+    MatCheckboxModule
   ],
   entryComponents: [AddProjectsComponent]
 })

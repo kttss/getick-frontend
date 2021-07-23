@@ -29,6 +29,7 @@ import { FormsModule } from '@angular/forms';
 import { AddCardComponent } from './components/add-card/add-card.component';
 import { AddListComponent } from './components/add-list/add-list.component';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 const routes = [
   {
@@ -44,8 +45,8 @@ const routes = [
     CardComponent,
     LabelSelectorComponent,
     AddCardComponent,
-    AddListComponent,
-    FuseConfirmDialogComponent
+    AddListComponent
+    //  FuseConfirmDialogComponent
   ],
   imports: [
     CommonModule,
@@ -66,9 +67,13 @@ const routes = [
     MatProgressBarModule,
     FuseMaterialColorPickerModule,
     FormsModule,
-    MatInputModule
+    MatInputModule,
+    TranslateModule
   ],
-  entryComponents: [CardComponent, FuseConfirmDialogComponent],
+  entryComponents: [
+    CardComponent
+    // FuseConfirmDialogComponent
+  ],
   providers: [ScrumboardService]
 })
 export class BoardModule {}

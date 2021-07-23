@@ -89,6 +89,13 @@
     "chat": "chat",
     "board": "Board"
   },
+
+  "board": {
+    "new_ticket": " create new ticket",
+    "new_list": "Add a list",
+    "ticket_title": "ticket title"
+  },
+
   "field_is_required": "field is required",
   "email_is_not_valid": "Please enter a valid email address"
 }

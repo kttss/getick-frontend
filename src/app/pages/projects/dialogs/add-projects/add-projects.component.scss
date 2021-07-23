@@ -97,4 +97,22 @@
       }
     }
   }
+  .invite-members {
+    width: 100%;
+    display: block !important;
+
+    .list-card-members {
+      margin-bottom: 12px;
+
+      .list-card-member {
+        margin-right: 8px;
+
+        .list-card-member-avatar {
+          border-radius: 50%;
+          width: 32px;
+          height: 32px;
+        }
+      }
+    }
+  }
 }

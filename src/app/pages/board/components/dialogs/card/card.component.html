@@ -57,8 +57,9 @@
         <!-- / MEMBERS -->
 
         <!-- ATTACHMENT -->
-        <button mat-icon-button aria-label="Attachment">
+        <button mat-icon-button aria-label="Attachment" (click)="file.click()">
           <mat-icon>attachment</mat-icon>
+          <input type="file" #file style="display: none" (change)="onUpload($event)" />
         </button>
         <!-- / ATTACHMENT -->
 
@@ -269,7 +270,10 @@
               </div>
             </div>
 
-            <button mat-stroked-button class="add-attachment-button" aria-label="add attachment">Add an attachment</button>
+            <button mat-stroked-button class="add-attachment-button" aria-label="add attachment" (click)="att.click()">
+              Add an attachment
+              <input type="file" #att style="display: none" (change)="onUpload($event)" />
+            </button>
           </div>
         </div>
       </div>
@@ -312,7 +316,7 @@
             <div class="check-items">
               <div class="check-item" *ngFor="let checkItem of checklist.checkItems" fxLayout="row" fxLayoutAlign="space-between center">
                 <div fxFlex fxLayout="row" fxLayoutAlign="start center">
-                  <!-- <mat-form-field appearance="outline" fxFlex>
+                  <mat-form-field appearance="outline" fxFlex>
                     <input matInput [(ngModel)]="checkItem.name" />
                     <mat-checkbox
                       matPrefix
@@ -324,7 +328,7 @@
                     <button mat-icon-button matSuffix class="checklist-actions-button" (click)="removeChecklistItem(checkItem, checklist)">
                       <mat-icon class="secondary-text">delete</mat-icon>
                     </button>
-                  </mat-form-field> -->
+                  </mat-form-field>
                 </div>
               </div>
             </div>
@@ -338,9 +342,9 @@
               fxLayoutAlign="start center"
             >
               <div fxLayout="row" fxLayoutAlign="start center" fxFlex>
-                <!-- <mat-form-field appearance="outline" class="no-errors-spacer mr-16" fxFlex>
+                <mat-form-field appearance="outline" class="no-errors-spacer mr-16" fxFlex>
                   <input matInput ngModel #checkItem="ngModel" name="checkItem" autocomplete="off" placeholder="New checklist item" />
-                </mat-form-field> -->
+                </mat-form-field>
               </div>
 
               <button mat-mini-fab color="accent" [disabled]="!newCheckItemForm.valid || newCheckItemForm.pristine" aria-label="Add">
@@ -371,7 +375,7 @@
               no-validate
             >
               <div fxLayout="row" fxLayoutAlign="center center">
-                <img class="comment-member-avatar" src="assets/images/avatars/profile.jpg" />
+                <img class="comment-member-avatar" [src]="getUserPhoto()" />
 
                 <mat-form-field class="mr-12" appearance="outline" fxFlex>
                   <mat-label>Comment</mat-label>

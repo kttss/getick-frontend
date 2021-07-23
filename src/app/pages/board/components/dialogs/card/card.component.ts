@@ -9,6 +9,8 @@ import { FuseUtils } from '@fuse/utils';
 
 import { takeUntil } from 'rxjs/operators';
 import { ScrumboardService } from 'app/pages/board/scrumboard.service';
+import { UploadService } from 'app/services/upload.service';
+import { TokenService } from 'app/services/token.service';
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
@@ -36,7 +38,9 @@ export class CardComponent implements OnInit {
     public matDialogRef: MatDialogRef<CardComponent>,
     @Inject(MAT_DIALOG_DATA) private _data: any,
     private _matDialog: MatDialog,
-    private _scrumboardService: ScrumboardService
+    private _scrumboardService: ScrumboardService,
+    private _uploadService: UploadService,
+    private _tokenService: TokenService
   ) {
     this._unsubscribeAll = new Subject();
   }
@@ -80,6 +84,10 @@ export class CardComponent implements OnInit {
     }
 
     this.updateCard();
+  }
+  getUserPhoto() {
+    const user = this._tokenService.getUser();
+    return this._uploadService.getUrl(user.photo);
   }
 
   removeAttachment(attachment): void {
@@ -174,9 +182,10 @@ export class CardComponent implements OnInit {
 
   addNewComment(form: NgForm): void {
     const newCommentText = form.value.newComment;
+    const user = this._tokenService.getUser();
 
     const newComment = {
-      idMember: '36027j1930450d8bf7b10158',
+      idMember: user.id,
       message: newCommentText,
       time: 'now'
     };
@@ -205,5 +214,24 @@ export class CardComponent implements OnInit {
 
   updateCard(): void {
     this._scrumboardService.updateCard(this.card);
+  }
+
+  onUpload(event) {
+    const file = event.target.files[0];
+    console.log(file.name);
+    this._uploadService.upload(file).subscribe((e: any) => {
+      const url = this._uploadService.getUrl(e.file);
+      console.log(url);
+
+      const attach = {
+        id: e.file,
+        name: file.name,
+        src: url,
+        time: 'Nov 3 at 15:22AM',
+        type: 'image'
+      };
+      this.card.attachments.push(attach);
+      this.updateCard();
+    });
   }
 }

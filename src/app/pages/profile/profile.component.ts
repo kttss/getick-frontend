@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { fuseAnimations } from '@fuse/animations';
 import { TokenService } from 'app/services/token.service';
+import { UploadService } from 'app/services/upload.service';
+import { UserService } from 'app/services/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,10 +13,19 @@ import { TokenService } from 'app/services/token.service';
 })
 export class ProfileComponent implements OnInit {
   user;
-  constructor(private tokenService: TokenService) {}
+  constructor(private tokenService: TokenService, private _uploadService: UploadService, private _userService: UserService) {}
 
   ngOnInit(): void {
     this.user = this.tokenService.getUser();
-    console.log(this.user);
+    console.log('user', this.user);
+  }
+
+  uplaodPhoto(event) {
+    this._uploadService.upload(event.target.files[0]).subscribe((data: any) => {
+      this._userService.addPhoto(this.user.id, data.file).subscribe();
+    });
+  }
+  getPhoto() {
+    return this._uploadService.getUrl(this.user.photo);
   }
 }
