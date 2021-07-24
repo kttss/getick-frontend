@@ -22,10 +22,10 @@
   [fusePerfectScrollbarOptions]="{ suppressScrollX: true }"
 >
   <div class="user" fxLayout="column" [ngClass]="fuseConfig.layout.navbar.secondaryBackground">
-    <div class="h3 username">Project A</div>
+    <div class="h3 username">{{ projectSelected ? projectSelected.name : '' }}</div>
     <!-- <div class="h5 email hint-text mt-8">manage of project</div> -->
     <div class="avatar-container" [ngClass]="fuseConfig.layout.navbar.primaryBackground">
-      <div class="avatar">A</div>
+      <div class="avatar">{{ getFirstChat() }}</div>
     </div>
   </div>
 

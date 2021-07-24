@@ -42,8 +42,8 @@
       </header>
 
       <div class="content" fxLayout="row wrap">
-        <div class="friend" fxFlex="20" *ngFor="let friend of about.friends">
-          <img [src]="friend.avatar" />
+        <div class="friend" fxFlex="20" *ngFor="let friend of friends">
+          <img [src]="friend.photo ? getPhotoUrl(friend.photo) : './../../../../../assets/images/user-photo.jpeg'" />
         </div>
       </div>
     </div>
@@ -57,14 +57,14 @@
       </header>
 
       <div class="content">
-        <div class="group" *ngFor="let group of about.groups" fxLayout="row" fxLayoutAlign="space-between center">
+        <div class="group" *ngFor="let group of projects" fxLayout="row" fxLayoutAlign="space-between center">
           <div fxLayout="row" fxLayoutAlign="start center">
             <div class="logo">{{ group.name.substring(0, 1) }}</div>
 
             <div>
               <div class="name">{{ group.name }}</div>
-              <div class="category">{{ group.category }}</div>
-              <div class="members">{{ group.members }} people</div>
+              <div class="category">{{ group.description }}</div>
+              <div class="members">{{ group.collaborators.length }} people</div>
             </div>
           </div>
 

@@ -3,6 +3,7 @@ import { fuseAnimations } from '@fuse/animations';
 import { TokenService } from 'app/services/token.service';
 import { UploadService } from 'app/services/upload.service';
 import { UserService } from 'app/services/user.service';
+import { UtilsService } from 'app/services/utils.service';
 
 @Component({
   selector: 'app-profile',
@@ -13,7 +14,12 @@ import { UserService } from 'app/services/user.service';
 })
 export class ProfileComponent implements OnInit {
   user;
-  constructor(private tokenService: TokenService, private _uploadService: UploadService, private _userService: UserService) {}
+  constructor(
+    private tokenService: TokenService,
+    private _uploadService: UploadService,
+    private _userService: UserService,
+    private _utilsService: UtilsService
+  ) {}
 
   ngOnInit(): void {
     this.user = this.tokenService.getUser();
@@ -23,6 +29,9 @@ export class ProfileComponent implements OnInit {
   uplaodPhoto(event) {
     this._uploadService.upload(event.target.files[0]).subscribe((data: any) => {
       this._userService.addPhoto(this.user.id, data.file).subscribe();
+      this.user.photo = data.file;
+      localStorage.setItem('user', JSON.stringify(this.user));
+      this._utilsService.onUserChange.next();
     });
   }
   getPhoto() {

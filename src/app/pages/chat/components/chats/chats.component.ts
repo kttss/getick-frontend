@@ -10,6 +10,7 @@ import { ChatService } from 'app/pages/chat/chat.service';
 import { MessagesService } from 'app/services/messages.service';
 import { UserService } from 'app/services/user.service';
 import { TokenService } from 'app/services/token.service';
+import { AlertService } from 'app/services/alert.service';
 @Component({
   selector: 'app-chats',
   templateUrl: './chats.component.html',
@@ -34,7 +35,8 @@ export class ChatsComponent implements OnInit, OnDestroy {
     private _chatService: ChatService,
     private _fuseMatSidenavHelperService: FuseMatSidenavHelperService,
     public _mediaObserver: MediaObserver,
-    private _userSercvice: UserService
+    private _userSercvice: UserService,
+    private _alertService: AlertService
   ) {
     this.chatSearch = {
       name: ''
@@ -48,6 +50,7 @@ export class ChatsComponent implements OnInit, OnDestroy {
     // this.user = this._chatService.user;
 
     this._chatService.messages.subscribe((data) => {
+      //   this._alertService.success('<b>message :</b>' + data.content);
       this._chatService.addMessage(data);
       if (this.selectedContact === data.sender_id) {
         this.getChat(this.selectedContact);
@@ -66,11 +69,8 @@ export class ChatsComponent implements OnInit, OnDestroy {
         this.user.chatList[indexSender].lastMessageTime = data.createdAt;
         this.user.chatList[indexSender].unread = 0;
       }
-
-      console.log(index);
     });
 
-    console.log(this._chatService.contacts);
     this.chats = this._chatService.chats;
     this.contacts = this._chatService.contacts;
     this._chatService.onDataChanged.subscribe((r) => {
@@ -92,21 +92,25 @@ export class ChatsComponent implements OnInit, OnDestroy {
           contactIds.push(item.sender_id);
         }
       });
-
-      contactIds.forEach((id) => {
-        const currentUser = this.contacts.find((usr) => usr.id == id);
-        const msg = messages.find((m) => (m.sender_id === id && m.receiver_id == myId) || (m.sender_id === myId && m.receiver_id == id));
-        chatList.push({
-          lastMessage: msg.content,
-          lastMessageTime: msg.createdAt,
-          contactId: id,
-          name: currentUser.firstname + ' ' + currentUser.lastname,
-          unread: 1
+      contactIds
+        .filter((a) => a !== this._chatService.connectedUser)
+        .forEach((id) => {
+          const currentUser = this.contacts.find((usr) => usr.id == id);
+          if (currentUser) {
+            const msg = messages.find(
+              (m) => (m.sender_id === id && m.receiver_id == myId) || (m.sender_id === myId && m.receiver_id == id)
+            );
+            chatList.push({
+              lastMessage: msg.content,
+              lastMessageTime: msg.createdAt,
+              contactId: id,
+              name: currentUser.firstname + ' ' + currentUser.lastname,
+              unread: messages.filter((m) => m.sender_id !== myId && m.isSeen == false).length
+            });
+          }
         });
-      });
       this.user.chatList = chatList;
     });
-    console.log(this.contacts);
     // forkJoin([this._userSercvice.getAllUsers(), this.messages.getAllMessages()]).subscribe((data: any) => {
     //   this.users = data[0];
     //   const messages: any[] = data[1].sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1));
@@ -168,6 +172,12 @@ export class ChatsComponent implements OnInit, OnDestroy {
   getChat(contact): void {
     this._chatService.getChat(contact);
     this.selectedContact = contact;
+    console.log(this.user.chatList);
+    this.user.chatList.forEach((element) => {
+      if (element.contactId === contact) {
+        element.unread = 0;
+      }
+    });
 
     // if (!this._mediaObserver.isActive('gt-md')) {
     //   this._fuseMatSidenavHelperService.getSidenav('app-chat-right-sidenav').toggle();

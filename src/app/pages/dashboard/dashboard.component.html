@@ -12,20 +12,6 @@
           <mat-icon>menu</mat-icon>
         </button>
       </div>
-
-      <div fxLayout="row">
-        <div class="selected-project">Project 1</div>
-
-        <button mat-icon-button class="project-selector" [matMenuTriggerFor]="projectsMenu" aria-label="Select project">
-          <mat-icon>more_horiz</mat-icon>
-        </button>
-
-        <mat-menu #projectsMenu="matMenu">
-          <button mat-menu-item *ngFor="let project of projects" (click)="selectedProject = project">
-            <span>{{ project.name }}</span>
-          </button>
-        </mat-menu>
-      </div>
     </div>
     <!-- / HEADER -->
 
@@ -244,7 +230,7 @@
               fxFlex.gt-sm="100"
             >
               <!-- Front -->
-              <div class="fuse-widget-front">
+              <!-- <div class="fuse-widget-front">
                 <div class="px-16 py-8 border-bottom" fxLayout="row" fxLayoutAlign="space-between center">
                   <div class="h3">{{ widgets.widget7.title }}</div>
                   <mat-form-field>
@@ -274,7 +260,7 @@
                     <mat-icon>more_vert</mat-icon>
                   </button>
                 </div>
-              </div>
+              </div> -->
               <!-- / Front -->
             </fuse-widget>
             <!-- / WIDGET 7 -->

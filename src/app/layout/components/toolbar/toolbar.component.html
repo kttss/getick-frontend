@@ -47,9 +47,8 @@
 
       <button mat-button fxHide fxShow.gt-xs class="language-button" [matMenuTriggerFor]="languageMenu">
         <div fxLayout="row" fxLayoutAlign="center center">
-          <!-- <img class="flag mr-8" [src]="'assets/icons/flags/'+selectedLanguage.flag+'.png'">
-                    <span class="iso text-uppercase">{{selectedLanguage.id}}</span> -->
-          FR
+          <img class="flag mr-8" [src]="'assets/icons/flags/' + selectedLanguage.flag + '.png'" />
+          <span class="iso text-uppercase">{{ selectedLanguage.id }}</span>
         </div>
       </button>
 
@@ -76,9 +75,9 @@
 
       <div class="toolbar-separator" fxHide.gt-md></div>
 
-      <button mat-icon-button class="quick-panel-toggle-button" (click)="toggleSidebarOpen('quickPanel')" aria-label="Toggle quick panel">
+      <!-- <button mat-icon-button class="quick-panel-toggle-button" (click)="toggleSidebarOpen('quickPanel')" aria-label="Toggle quick panel">
         <mat-icon class="secondary-text">format_list_bulleted</mat-icon>
-      </button>
+      </button> -->
 
       <div class="toolbar-separator" *ngIf="!hiddenNavbar && rightNavbar" fxHide fxShow.gt-xs></div>
 

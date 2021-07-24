@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseConfigService } from '@fuse/services/config.service';
 import { UserService } from 'app/services/user.service';
@@ -18,7 +19,12 @@ export class SignUpComponent implements OnInit {
 
   private _unsubscribeAll: Subject<any>;
 
-  constructor(private _fuseConfigService: FuseConfigService, private _formBuilder: FormBuilder, private _userService: UserService) {
+  constructor(
+    private _fuseConfigService: FuseConfigService,
+    private _formBuilder: FormBuilder,
+    private _userService: UserService,
+    private router: Router
+  ) {
     // Configure the layout
     this._fuseConfigService.config = {
       layout: {
@@ -61,7 +67,7 @@ export class SignUpComponent implements OnInit {
 
   onsubmit() {
     this._userService.signup({ username: 'a', ...this.registerForm.value }).subscribe((data) => {
-      console.log('issam', data);
+      this.router.navigate(['/login']);
     });
   }
 

@@ -15,4 +15,8 @@ export class MessagesService {
   sendMessage(payload) {
     return this._http.post(environment.api_url + 'chat/send', payload);
   }
+
+  readMessage(id) {
+    return this._http.get(environment.api_url + 'chat/readMesages?id=' + id);
+  }
 }

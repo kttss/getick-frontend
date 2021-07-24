@@ -12,6 +12,7 @@ import { TokenService } from 'app/services/token.service';
 import { Router } from '@angular/router';
 import { ProjectService } from 'app/services/project.service';
 import { UploadService } from 'app/services/upload.service';
+import { UtilsService } from 'app/services/utils.service';
 
 @Component({
   selector: 'toolbar',
@@ -48,7 +49,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     private tokenService: TokenService,
     private router: Router,
     private _projectService: ProjectService,
-    private _uploadService: UploadService
+    private _uploadService: UploadService,
+    private _utilsService: UtilsService
   ) {
     // Set the defaults
     this.userStatusOptions = [
@@ -112,16 +114,26 @@ export class ToolbarComponent implements OnInit, OnDestroy {
       this.rightNavbar = settings.layout.navbar.position === 'right';
       this.hiddenNavbar = settings.layout.navbar.hidden === true;
     });
-    this.user = this.tokenService.getUser();
 
     // Set the selected language from default languages
     this.selectedLanguage = _.find(this.languages, { id: this._translateService.currentLang });
 
+    this._utilsService.onDataChanged.subscribe((e) => {
+      this.loadProject();
+    });
+    this._utilsService.onUserChange.subscribe((data) => {
+      this.user = this.tokenService.getUser();
+    });
+    this.loadProject();
+  }
+
+  loadProject() {
+    this.user = this.tokenService.getUser();
     this._projectService.get().subscribe((projects: any[]) => {
       this.projects = projects;
 
       const selectedProject = localStorage.getItem('project');
-      console.log(this.projects);
+
       if (selectedProject) {
         this.selectedProject = JSON.parse(selectedProject);
       } else if (projects.length) {
@@ -130,10 +142,10 @@ export class ToolbarComponent implements OnInit, OnDestroy {
       }
     });
   }
-
   onSelectProject(project) {
     this.selectedProject = project;
     localStorage.setItem('project', JSON.stringify(project));
+    this._utilsService.onChangeProject.next();
   }
 
   /**

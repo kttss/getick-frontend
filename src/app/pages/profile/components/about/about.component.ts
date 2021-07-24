@@ -6,6 +6,8 @@ import { fuseAnimations } from '@fuse/animations';
 import { MatDialog } from '@angular/material';
 import { EditProfileComponent } from '../../dialogs/edit-profile/edit-profile.component';
 import { UserService } from 'app/services/user.service';
+import { UploadService } from 'app/services/upload.service';
+import { ProjectService } from 'app/services/project.service';
 
 @Component({
   selector: 'app-about',
@@ -92,15 +94,33 @@ export class AboutComponent implements OnInit, OnDestroy {
       }
     ]
   };
+  friends: any[] = [];
+  projects: any[] = [];
 
   // Private
   private _unsubscribeAll: Subject<any>;
 
-  constructor(public dialog: MatDialog, private userService: UserService) {
+  constructor(
+    public dialog: MatDialog,
+    private userService: UserService,
+    private _uploadService: UploadService,
+    private _projectService: ProjectService
+  ) {
     this._unsubscribeAll = new Subject();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.userService.getAllUsers().subscribe((data: any) => {
+      this.friends = data;
+    });
+    this._projectService.get().subscribe((data: any) => {
+      this.projects = data;
+    });
+  }
+
+  getPhotoUrl(img) {
+    return this._uploadService.getUrl(img);
+  }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(EditProfileComponent, {

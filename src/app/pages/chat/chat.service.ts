@@ -10,6 +10,7 @@ import * as io from 'socket.io-client';
 import { environment } from 'environments/environment';
 import { TokenService } from 'app/services/token.service';
 import { UploadService } from 'app/services/upload.service';
+import { AlertService } from 'app/services/alert.service';
 
 @Injectable()
 export class ChatService implements Resolve<any> {
@@ -28,8 +29,17 @@ export class ChatService implements Resolve<any> {
   listMessages: any[];
   connectedUser: any;
 
-  constructor(private _httpClient: HttpClient, private _tokenService: TokenService, private _uploadservice: UploadService) {
-    this.connectedUser = this._tokenService.getUser().id;
+  constructor(
+    private _httpClient: HttpClient,
+    private _tokenService: TokenService,
+    private _uploadservice: UploadService,
+    private _alertService: AlertService
+  ) {
+    const us = this._tokenService.getUser();
+    if (us) {
+      this.connectedUser = us.id;
+    }
+
     // Set the defaults
     this.onChatSelected = new BehaviorSubject(null);
     this.onContactSelected = new BehaviorSubject(null);
@@ -44,7 +54,6 @@ export class ChatService implements Resolve<any> {
 
       this.user = { ...userItem, chatList: [] };
 
-      console.log('dddd', userItem, this.user);
       this.listMessages = messages.sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1));
       this.onDataChanged.next();
     });
@@ -54,6 +63,11 @@ export class ChatService implements Resolve<any> {
     this.socket = io(environment.api_url);
 
     this.socket.on('message', (data) => {
+      if (data.receiver_id == this.connectedUser) {
+        const name = this.contacts.find((e) => e.id === data.sender_id).name;
+        this._alertService.success(name + ' : ' + data.content);
+      }
+
       this.messages.next(data);
     });
   }
@@ -85,6 +99,7 @@ export class ChatService implements Resolve<any> {
     //   });
     //   return;
     // }
+    this._httpClient.get(environment.api_url + 'chat/readMesages/' + contactId).subscribe();
 
     const data = this.listMessages.filter(
       (m) =>
@@ -224,6 +239,7 @@ export class ChatService implements Resolve<any> {
             status: 'offline'
           };
         });
+
         resolve(listContacts);
       }, reject);
     });

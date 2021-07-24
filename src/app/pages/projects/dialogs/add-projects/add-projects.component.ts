@@ -8,6 +8,7 @@ import { ProjectService } from 'app/services/project.service';
 import { TokenService } from 'app/services/token.service';
 import { UploadService } from 'app/services/upload.service';
 import { UserService } from 'app/services/user.service';
+import { UtilsService } from 'app/services/utils.service';
 
 @Component({
   selector: 'app-add-projects',
@@ -28,7 +29,8 @@ export class AddProjectsComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _userService: UserService,
     private _uploadPhoto: UploadService,
-    private _tokenService: TokenService
+    private _tokenService: TokenService,
+    private _utilsService: UtilsService
   ) {}
 
   ngOnInit(): void {
@@ -70,6 +72,7 @@ export class AddProjectsComponent implements OnInit {
     if (this.isEdit) {
       this._projectService.update(this.data._id, { ...this.projectForm.value }).subscribe((data) => {
         this._alertService.success(this._translate.instant('projects.form.project_updated'));
+        this._utilsService.onDataChanged.next();
         this.dialogRef.close(true);
       });
     } else {
@@ -90,6 +93,7 @@ export class AddProjectsComponent implements OnInit {
       this._projectService.create({ ...this.projectForm.value, board: JSON.stringify(newBoard) }).subscribe((data) => {
         this._alertService.success(this._translate.instant('projects.form.project_added'));
         this.dialogRef.close(true);
+        this._utilsService.onDataChanged.next();
       });
     }
   }

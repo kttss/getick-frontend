@@ -45,8 +45,8 @@ const routes = [
     CardComponent,
     LabelSelectorComponent,
     AddCardComponent,
-    AddListComponent
-    //  FuseConfirmDialogComponent
+    AddListComponent,
+    FuseConfirmDialogComponent
   ],
   imports: [
     CommonModule,
@@ -70,10 +70,7 @@ const routes = [
     MatInputModule,
     TranslateModule
   ],
-  entryComponents: [
-    CardComponent
-    // FuseConfirmDialogComponent
-  ],
+  entryComponents: [CardComponent, FuseConfirmDialogComponent],
   providers: [ScrumboardService]
 })
 export class BoardModule {}
