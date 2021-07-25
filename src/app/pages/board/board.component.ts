@@ -7,6 +7,7 @@ import { fuseAnimations } from '@fuse/animations';
 import { ScrumboardService } from './scrumboard.service';
 import { List } from 'app/main/apps/scrumboard/list.model';
 import { ProjectService } from 'app/services/project.service';
+import { UtilsService } from 'app/services/utils.service';
 
 @Component({
   selector: 'app-board',
@@ -24,7 +25,8 @@ export class BoardComponent implements OnInit, OnDestroy {
     private _activatedRoute: ActivatedRoute,
     private _location: Location,
     private _scrumboardService: ScrumboardService,
-    private _projectService: ProjectService
+    private _projectService: ProjectService,
+    private _utilsService: UtilsService
   ) {
     this._unsubscribeAll = new Subject();
   }
@@ -45,6 +47,13 @@ export class BoardComponent implements OnInit, OnDestroy {
       // this.list = this.board.lists.find((_list) => {
       //   return this._data.listId === _list.id;
       // });
+    });
+
+    this._utilsService.onChangeProject.subscribe((data) => {
+      const proj = JSON.parse(localStorage.getItem('project'));
+      this._projectService.getBoard(proj._id).subscribe((d) => {
+        this._scrumboardService.setBoard(d);
+      });
     });
   }
 
